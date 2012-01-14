@@ -6,3 +6,6 @@ app/bootstrap*
 */cache/*
 web/uploads/*
 web/bundles/*
+
+app/cities.sqlite
+*.sw[op]
