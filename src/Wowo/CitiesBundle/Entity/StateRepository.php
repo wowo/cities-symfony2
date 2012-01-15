@@ -12,4 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class StateRepository extends EntityRepository
 {
+    public function findTop10States()
+    {
+        $dql = <<<EOT
+            SELECT s.name, s.capital, s.population, count(c.id) AS countCities, sum(c.population) AS sumPopulation, sum(c.land_area) AS sumLandArea
+            FROM WowoCitiesBundle:State s
+            JOIN s.cities c
+            GROUP BY s.name
+            ORDER BY countCities DESC, sumPopulation DESC
+EOT;
+        $dql = $this->_em->createQuery($dql);
+        $dql->setMaxResults(10);
+        return $dql->getResult();
+    }
+
 }

@@ -10,11 +10,11 @@ try {
         throw new \Exception("Cities csv not specified!");
     }
     $handle = fopen(__DIR__ . '/' . $states, 'r');
-    $statesSQL = "INSERT INTO state(name, shortcut, capital) VALUES ";
+    $statesSQL = "INSERT INTO state(name, shortcut, capital, population) VALUES ";
     $valuesSQL = array();
     $headers = fgetcsv($handle);
     while ($data = fgetcsv($handle)) {
-        $valuesSQL[] = $statesSQL . vsprintf("('%s', '%s', '%s')", $data) . ';';
+        $valuesSQL[] = $statesSQL . vsprintf("('%s', '%s', '%s', %d)", $data) . ';';
     }
     $statesSQL = implode(PHP_EOL, $valuesSQL);
 
@@ -25,7 +25,8 @@ try {
     $headers = fgetcsv($handle);
     while ($data = fgetcsv($handle)) {
         $row = array_combine($headers, $data);
-        $ordered = array($row['city'], $row['rank'], $row['population'], $row['land_area'], $row['density'], $row['state']);
+        $ordered = array($row['city'], $row['rank'], str_replace(',', '', $row['population']), 
+            str_replace(',', '', $row['land_area']), str_replace(',', '', $row['density']), $row['state']);
         $valuesSQL[] = $citiesSQL . vsprintf("('%s', %d, %d, %.2f, %.2f , (SELECT id FROM state WHERE name = '%s'))", $ordered) . ';';
     }
     $citiesSQL = implode(PHP_EOL, $valuesSQL);

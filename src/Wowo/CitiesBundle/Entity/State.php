@@ -43,6 +43,13 @@ class State
     private $capital;
 
     /**
+     * @var integer $population
+     *
+     * @ORM\Column(name="population", type="integer")
+     */
+    private $population;
+
+    /**
      * @var ArrayCollection<City> $cities 
      * 
      * @ORM\OneToMany(targetEntity="City", mappedBy="state")
@@ -118,5 +125,25 @@ class State
     public function getCapital()
     {
         return $this->capital;
+    }
+
+    /**
+     * Set population
+     *
+     * @param integer $population
+     */
+    public function setPopulation($population)
+    {
+        $this->population = $population;
+    }
+
+    /**
+     * Get population
+     *
+     * @return integer 
+     */
+    public function getPopulation()
+    {
+        return $this->population;
     }
 }
