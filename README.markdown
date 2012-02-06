@@ -1,3 +1,3 @@
 :Framework comparison app: http://blog.sznapka.pl/modern-frameworks-comparison
 
-![tracking](http://sznapka.pl/visits/visits.php?source=github-cities-symfony2)
+![tracking](http://visitspy.net/spot/4a417b4a/track)
